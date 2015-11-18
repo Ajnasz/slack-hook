@@ -140,7 +140,7 @@ function createServer(token) {
 		debug.log('add user methods');
 
 		middlewares.forEach(function (middleware) {
-			promise = middleware(promise);
+			promise = promise.then(middleware);
 		});
 
 		return promise;

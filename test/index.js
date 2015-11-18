@@ -121,13 +121,8 @@ describe('server', function () {
 		});
 
 		it('should respond 200 if middleware resolved', function (done) {
-			var called = false;
-
-			server.use(function (promise) {
-				return promise.then(function (serv) {
-					called = true;
-					return Promise.resolve(serv);
-				});
+			server.use(function (serv) {
+				return Promise.resolve(serv);
 			});
 
 			post(port, {
@@ -144,11 +139,9 @@ describe('server', function () {
 		it('should have serv.req property', function (done) {
 			var rServ;
 
-			server.use(function (promise) {
-				return promise.then(function (serv) {
-					rServ = serv;
-					return Promise.resolve(serv);
-				});
+			server.use(function (serv) {
+				rServ = serv;
+				return Promise.resolve(serv);
 			});
 
 			post(port, {
@@ -165,11 +158,9 @@ describe('server', function () {
 		it('should have serv.res property', function (done) {
 			var rServ;
 
-			server.use(function (promise) {
-				return promise.then(function (serv) {
-					rServ = serv;
-					return Promise.resolve(serv);
-				});
+			server.use(function (serv) {
+				rServ = serv;
+				return Promise.resolve(serv);
 			});
 
 			post(port, {
@@ -186,11 +177,9 @@ describe('server', function () {
 		it('should have serv.req.body property', function (done) {
 			var rServ;
 
-			server.use(function (promise) {
-				return promise.then(function (serv) {
-					rServ = serv;
-					return Promise.resolve(serv);
-				});
+			server.use(function (serv) {
+				rServ = serv;
+				return Promise.resolve(serv);
 			});
 
 			post(port, {
@@ -207,11 +196,9 @@ describe('server', function () {
 		it('should add all posted param to serv.req.body', function (done) {
 			var rServ;
 
-			server.use(function (promise) {
-				return promise.then(function (serv) {
-					rServ = serv;
-					return Promise.resolve(serv);
-				});
+			server.use(function (serv) {
+				rServ = serv;
+				return Promise.resolve(serv);
 			});
 
 			var data = {
@@ -241,11 +228,9 @@ describe('server', function () {
 		it('should respond with given responseText', function (done) {
 			var text = 'Response Text ' + Math.random();
 
-			server.use(function (promise) {
-				return promise.then(function (serv) {
-					serv.respond(text);
-					return Promise.resolve(serv);
-				});
+			server.use(function (serv) {
+				serv.respond(text);
+				return Promise.resolve(serv);
 			});
 
 			post(port, {
@@ -268,11 +253,9 @@ describe('server', function () {
 		it('should respond with 200 if has responseText', function (done) {
 			var text = 'Response Text ' + Math.random();
 
-			server.use(function (promise) {
-				return promise.then(function (serv) {
-					serv.respond(text);
-					return Promise.resolve(serv);
-				});
+			server.use(function (serv) {
+				serv.respond(text);
+				return Promise.resolve(serv);
 			});
 
 			post(port, {
@@ -289,13 +272,11 @@ describe('server', function () {
 		it('should respond with given status code on error', function (done) {
 			var code = 900;
 
-			server.use(function (promise) {
-				return promise.then(function (serv) {
-					serv.error = {
-						statusCode: code
-					};
-					return Promise.reject(serv);
-				});
+			server.use(function (serv) {
+				serv.error = {
+					statusCode: code
+				};
+				return Promise.reject(serv);
 			});
 
 			post(port, {
@@ -312,13 +293,11 @@ describe('server', function () {
 		it('should respond with given message code on error', function (done) {
 			var text = 'Response Text ' + Math.random();
 
-			server.use(function (promise) {
-				return promise.then(function (serv) {
-					serv.error = {
-						message: text
-					};
-					return Promise.reject(serv);
-				});
+			server.use(function (serv) {
+				serv.error = {
+					message: text
+				};
+				return Promise.reject(serv);
 			});
 
 			post(port, {
